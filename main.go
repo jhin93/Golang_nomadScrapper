@@ -1,30 +1,48 @@
 package main
 
+// fmt는 go에서 표준출력 및 입력을 하기 위한 패키지이다.
+// https://brownbears.tistory.com/175
 import (
 	"fmt"
+	"strings"
 )
 
-// 변수(Variables)와 상수(Constants)
-// 변수는 말 그대로 변수, 값을 변경할 수 있다. 하지만 상수는 변수지만 값을 바꿀 수 없다.
-// Variables는 let, Constants는 const로 보면 된다.
+// 컴파일러에게 a와 b가 무엇인지 말을 해주어야 한다. (a int, b int)
+// multiply도 int인 값을 return 한다고 말해야 한다.
+// --> func multiply (a int, b int) 'int' {}
+// a,b 둘 다 숫자일 경우, (a int, b int) 가 (a, b int)로 요약될 수 있다.
+// 항상 어떤 종류의 arguments를 받는지, 어떤 종류의 return값인지 작성해야 한다.
+
+/*
+func multiply(a, b int) int {
+	return a * b
+}
 
 func main() {
-	//const name = "nico"
-	//	이것은 타입이 없는 상수(const name untyped string = "nico").
-	//	Go는 type 언어다. 타입이 무엇인지 알려줘야 함. String인지 Boolean인지
-	//const name string = "nico"
-	//	이제 name이 string타입이란 걸 알 수 있다.
-	//var name string = "nico"
-	//name = "lynn"
-	//	var는 변수이기에 재할당이 가능하다.
-	//name := "nico"
-	//	var name string = "nico"를 위 코드처럼 축약시킨다면 Go가 type을 찾아줌. 정해진 type은 임의로 변경 x
-	name := "nico"
-	name = "lynn"
-	//	만약 name의 type이 위와 같이 Boolean(false)로 정해진다면 그 name 변수는 String으로 변환할 수 없다는 메시지가 뜸.
-	//	왜냐하면 첫번째 변수의 type에 의존해서 두번째 변수의 type도 정해진다.
-	//	또한 func을 벗어나면 축약형 코드(ex name := false)는 작동하지 않는다.
-	//	그리고 축약형은 변수에만 적용 가능하다. 축약형이 존재하면 Go가 첫번째 변수를 기준으로 변수의 type을 찾아 정해준다.
-	//	함수 밖에서 코드가 작동하게 하려면 var name bool = false <- 이런식으로 전부 작성해야 작동한다.
-	fmt.Println(name)
+	fmt.Println(multiply(2, 2))
+
 }
+*/
+
+/*		Go의 특징 : function들이 여러 개의 return 값을 가질 수 있다.	*/
+
+// func lenAndUpper. multiple value(4 NICO)를 반환하는 function
+// 1. name이라는 string을 인자로 사용한다.
+// 2. return 하는 것은 name이라는 string의 길이(int)와 name(string) 그 자체(대문자로).
+// 3. (int, string) <-- 이런 식으로 return 받을 값의 type들을 정의해야 한다.
+// 4. len은 문자열의 길이를 구하는 함수, strings는 name을 string으로 만들어주는 go package, ToUpper는 대문자로 만들어주는 함수이다.
+func lenAndUpper(name string) (int, string) {
+	return len(name), strings.ToUpper(name)
+}
+
+func main() {
+	// totalLength, upperName는 변수
+	// lenAndUpper 사용하기. 인자는 "nico".
+	totalLength, upperName := lenAndUpper("nico")
+	// Go는 뭔가를 만들었으면 사용해야만 한다. 변수를 위에서 39번째 줄에서 만들었으니 41번째에서 사용.
+	fmt.Println(totalLength, upperName)
+}
+
+// 만약 totalLength만 출력하려 한다면 실패한다. 1개의 variable로 2개의 value를 담을 수 없기 때문.
+// totalLength, _ := lenAndUpper("nico") <-- 이런식으로 _(underscore) 를 작성한다면 컴파일러가 value값을 무시하여 가능하다.
+// 결과는 4만 출력된다.
