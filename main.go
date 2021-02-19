@@ -5,18 +5,24 @@ import (
 	"strings"
 )
 
-// naked return
-// 함수를 작성할 때, 마지막에 return할 variable을 꼭 명시하지 않아도 된다. ex return 어쩌구저쩌구..
-// 함수 작성할 시 {} 이전에 return할 값을 넣는 곳에 처음부터 쓰고 시작해도 된다. 대신 리턴할 variable과 함수 내부에 작성될 variable은 같아야 한다.
-// 대신 마지막에 'return'은 꼭 작성해준다.
+// defer
+// defer는 function이 값을 return하고 나면 실행된다.
+// function이 실행되고 나서 코드가 실행된다.
+// 아래 코드에서는 다음과 같은 순서로 코드가 작동한다.
+// 1. 22번째 줄의 lenAndUpper 함수가 실행된다.
+// 2. 16번째 줄의 defer 가 실행된다.
+// 3. 27번째 줄의 fmt.Println가 실행된다.
+// 4. 25번째 줄의 defer 가 실행된다. 이 defer가 속한 'main'함수가 끝났으니까.
 
 func lenAndUpper(name string) (length int, uppercase string) {
+	defer fmt.Println("I'm done")
 	length = len(name)
 	uppercase = strings.ToUpper(name)
 	return
 }
 
 func main() {
+	defer fmt.Println("I'm last")
 	totalLength, upper := lenAndUpper("nico")
 	fmt.Println(totalLength, upper)
 }
