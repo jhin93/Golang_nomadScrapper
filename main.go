@@ -7,7 +7,7 @@ import "fmt"
 // 또한 range는 오로지 for 안에서만 적용할 수 있다.
 func superAdd(numbers ...int) int {
 	total := 0
-	for _, number := range numbers {
+	for number := range numbers {
 		total += number
 	}
 	return total
@@ -18,7 +18,7 @@ func main() {
 	fmt.Println(result)
 }
 
-// 결과 21
+// 결과 15
 
-// for a, b := 는 인덱스, 내용물.
-// 그래서 이 함수에선 total에 0부터가 아닌 1부터 더한다. 함수의 결과는 21.
+// for a := 는 인덱스.
+// 그래서 이 함수에선 total에 0부터 5까지 더한다. 함수의 결과는 15.
