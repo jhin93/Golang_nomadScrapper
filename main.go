@@ -2,23 +2,26 @@ package main
 
 import "fmt"
 
-// Go에서 loop는 오로지 for를 사용하는 것으로만 가능하다.
-// range는 array에 loop를 적용할 수 있도록 해준다.
-// 또한 range는 오로지 for 안에서만 적용할 수 있다.
-func superAdd(numbers ...int) int {
-	total := 0
-	for number := range numbers {
-		total += number
+// if를 사용할 때 ()를 사용하지 않는다.
+// if를 쓰는 순간에 variable을 작성할 수 있다. ex) if koreanAge :=
+
+// [1]과 [2]의 작성은 동일하다.
+
+//[1]
+//	if koreanAge := age + 2; koreanAge < 18
+
+//[2]
+//	koreanAge := age + 2;
+//	if koreanAge < 18
+
+// 하지만 [1]의 방식으로 사용하는 것을 추천한다. 그래야 변수가 if-else 구문에서만 사용하려고 만든 것임을 알 수 있다.
+func canIDrink(age int) bool {
+	if koreanAge := age + 2; koreanAge < 18 {
+		return false
 	}
-	return total
+	return true
 }
 
 func main() {
-	result := superAdd(1, 2, 3, 4, 5, 6)
-	fmt.Println(result)
+	fmt.Println(canIDrink(16))
 }
-
-// 결과 15
-
-// for a := 는 인덱스.
-// 그래서 이 함수에선 total에 0부터 5까지 더한다. 함수의 결과는 15.
