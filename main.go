@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// Low-Level programming.
+// 커밋 테스트
 
 func canIDrink(age int) bool {
 	switch koreanAge := age + 2; koreanAge {
