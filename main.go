@@ -6,9 +6,10 @@ import "fmt"
 // 자바스크립트의 object와 비슷하다.
 
 func main() {
-	// 작성하는 법
-	// map[key의 타입]value의 타입{key:value}
-	// 아래 map의 key는 string, value도 string.
+	// map도 range를 이용해서 반복문에 이용할 수 있다.
 	nico := map[string]string{"name": "nico", "age": "12"}
-	fmt.Println(nico)
+	// key나 value 둘중 하나를 ignore 시킬 수도 있다.
+	for key, _ := range nico {
+		fmt.Println(key)
+	}
 }
