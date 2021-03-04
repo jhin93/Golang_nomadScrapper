@@ -1,15 +1,8 @@
 package main
 
-import "fmt"
-
-// 데이터 구조 : map
-// 자바스크립트의 object와 비슷하다.
+// struct.
+// struct는 자바스크립트의 object와 비슷하면서 map보다 유연한 것이 특징이다.
 
 func main() {
-	// map도 range를 이용해서 반복문에 이용할 수 있다.
-	nico := map[string]string{"name": "nico", "age": "12"}
-	// key나 value 둘중 하나를 ignore 시킬 수도 있다.
-	for key, _ := range nico {
-		fmt.Println(key)
-	}
+
 }
