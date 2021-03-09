@@ -13,10 +13,9 @@ type person struct {
 
 func main() {
 	// person에게 value를 주는 방법에는 두가지가 있다.
-	// 첫번째로 순서대로 작성하는 방법. name -> age -> favFood
-	// 그러나 이렇게 작성하는 것은 그다지 추천하지 않는다. 왜냐하면 상단에 struct를 봐야 어떤 field가 무슨 value인지 알 수 있다.
+	// 두번째 방법. 상단의 struct가 안보이거나 해도 어떤 식으로 이루어져있는지 알 수 있다.
 	favFood := []string{"kimchi", "ramen"}
-	nico := person{"nico", 18, favFood}
+	nico := person{name: "nico", age: 18, favFood: favFood}
 	//fmt.Println(nico) 혹은 fmt.Println(nico.age)
 	fmt.Println(nico.age)
 }
