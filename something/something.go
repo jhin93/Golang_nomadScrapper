@@ -8,6 +8,7 @@ func sayBye() {
 	fmt.Println("Bye")
 }
 
+//SayHello gonna exported.
 func SayHello() {
-	fmt.Println("Hello")
+	fmt.Println("Hello, i'm exported")
 }
