@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 // defer
@@ -14,15 +13,23 @@ import (
 // 3. func main의 fmt.Println가 실행된다.
 // 4. func main의 defer 가 실행된다. 이 defer가 속한 'main'함수 실행이 끝났으니까.
 
-func lenAndUpper(name string) (length int, uppercase string) {
-	defer fmt.Println("I'm done")
-	length = len(name)
-	uppercase = strings.ToUpper(name)
-	return
+func superAdd(fff ...int) int {
+	for number := range fff {
+		fmt.Println(fff[0], fff[1], fff[2])
+		fmt.Println(number)
+	}
+	return 2 // 리턴값을 int로 설정했으니 아무 int나 넣어놓은 것.
 }
 
 func main() {
-	defer fmt.Println("I'm last")
-	totalLength, upper := lenAndUpper("nico")
-	fmt.Println(totalLength, upper)
+	superAdd(10, 20, 30)
 }
+
+// 결과
+
+// 10 20 30
+// 0
+// 10 20 30
+// 1
+// 10 20 30
+// 2
