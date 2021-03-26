@@ -2,16 +2,13 @@ package main
 
 import "fmt"
 
-func canIdrink(age int) bool {
-	if koreanAge := age - 1; koreanAge >= 19 {
-		return true
-	}
-	return false
-}
+// 메모리.
 
 func main() {
-	fmt.Println(canIdrink(19))
-}
+	a := 2
+	b := a
+	a = 10
+	// 이 시점 이후로 a에 어떤 값이 들어가도 b에 영향이 가지 않는다. 이 시점의 b는 2.
+	fmt.Println(a, b)
 
-// 20을 인자로 넣어도 false가 도출된다.
-// 10 혹은 18만 리턴되어야 하기 때문.
+}
