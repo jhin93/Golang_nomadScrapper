@@ -2,14 +2,12 @@ package main
 
 import "fmt"
 
-// Slices.
-// 길이를 명시하지 않아도 되는 Array이다.
+// Map.
+// Object와 비슷한 구조의 데이터 형식이다.
 
 func main() {
-	names := []string{"a", "b", "c"}
-	// slice에 item을 추가할 때 사용하는 것이 append()라는 함수이다.
-	// append는 2개의 arguments를 사용한다. 첫번째론 해당 slice, 두번째는 넣을 요소
-	names = append(names, "d")
-	fmt.Println(names)
-	// 결과 [a b c d]
+	//작성하는 법 - map[key타입]value타입{key:value, key:value, ...}
+	nico := map[int]string{1: "a", 2: "b", 3: "c"}
+	// 밸류를 작성할 때 작은 따옴표('')가 아닌 큰 따옴표("")로 작성한다. 그렇지 않으면 에러 발생.
+	fmt.Println(nico)
 }
