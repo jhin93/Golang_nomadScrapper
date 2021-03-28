@@ -2,12 +2,29 @@ package main
 
 import "fmt"
 
-// Map.
-// Object와 비슷한 구조의 데이터 형식이다.
+// array처럼 map에도 range를 적용할 수 있다.
 
 func main() {
-	//작성하는 법 - map[key타입]value타입{key:value, key:value, ...}
 	nico := map[int]string{1: "a", 2: "b", 3: "c"}
-	// 밸류를 작성할 때 작은 따옴표('')가 아닌 큰 따옴표("")로 작성한다. 그렇지 않으면 에러 발생.
-	fmt.Println(nico)
+	for a, b := range nico {
+		fmt.Println(a, b)
+	}
+	// 결과
+	// 1 a
+	// 2 b
+	// 3 c
+	for a := range nico {
+		fmt.Println(a)
+	}
+	// 결과
+	// 1
+	// 2
+	// 3
+	for _, b := range nico {
+		fmt.Println(b)
+	}
+	// 결과
+	// a
+	// b
+	// c
 }
