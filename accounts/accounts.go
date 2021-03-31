@@ -10,7 +10,11 @@ type Account struct {
 
 // NewAccount is account-making function.
 // 여기서 NewAccount의 인자를 owner만 받고 balance는 0으로 고정해버리면, 사용자는 새 계좌를 만들 때 임의로 balance를 조작할 수 없다.
-func NewAccount(owner string) *Account {
+// 반환형에 포인터를 사용했다면 return에도 주소를 뜻하는 &을 사용해야 한다. 아니면 에러발생
+func NewAccount(owner string) Account {
 	account := Account{owner: owner, balance: 0}
-	return &account
+	return account
 }
+
+// 결과
+// {nico 0}
