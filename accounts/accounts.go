@@ -16,6 +16,8 @@ func NewAccount(owner string) *Account {
 
 // Deposit x amount on your account
 func (a *Account) Deposit(amount int) {
+	// 위와 같은 작성 방식을 'pointer receiver'라고 함.
+	// 여기서 포인터(*)를 사용하면 (a *Account) Deposit 메서드를 호출한 account를 사용하라는 뜻.
 	a.balance += amount
 }
 
