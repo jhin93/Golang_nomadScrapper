@@ -1,5 +1,7 @@
 package accounts
 
+import "errors"
+
 // Account struct
 // export를 하기 위해선 주석으로 export하는 대상을 언급해주어야 한다.
 // 대문자는 public, 소문자는 private.
@@ -24,4 +26,17 @@ func (a *Account) Deposit(amount int) {
 // Balance of your account.
 func (a Account) Balance() int {
 	return a.balance
+}
+
+// Withdraw x amount from your account
+func (a *Account) Withdraw(amount int) error {
+	// 잔액이 마이너스 일 경우 출금을 방지하는 로직.
+	if a.balance < amount {
+		// error를 리턴한다고 명시해야 함. ...Withdraw(amount int) 'error'...
+		return errors.New("Can't withdraw you are pooor")
+	}
+	a.balance -= amount
+	// 조건문 밖에서도 리턴을 해주어야 한다.
+	// boolean에 true, false 처럼 error에도 두가지 value가 있다. 바로 error와 nil. nil은 자바스크립트의 null과 유사하다.
+	return nil
 }
