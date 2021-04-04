@@ -10,6 +10,9 @@ type Account struct {
 	balance int
 }
 
+// 코드 퀄리티를 위해 에러변수를 작성할때는 'err땡땡땡' 이어야 한다.
+var errNoMoney = errors.New("Can't withdraw")
+
 // NewAccount is account-making function.
 func NewAccount(owner string) *Account {
 	account := Account{owner: owner, balance: 0}
@@ -33,7 +36,7 @@ func (a *Account) Withdraw(amount int) error {
 	// 잔액이 마이너스 일 경우 출금을 방지하는 로직.
 	if a.balance < amount {
 		// error를 리턴한다고 명시해야 함. ...Withdraw(amount int) 'error'...
-		return errors.New("Can't withdraw you are pooor")
+		return errNoMoney
 	}
 	a.balance -= amount
 	// 조건문 밖에서도 리턴을 해주어야 한다.
