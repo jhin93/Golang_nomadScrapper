@@ -18,10 +18,3 @@ func main() {
 	}
 	fmt.Println(account.Balance())
 }
-
-// 실행결과
-// 10
-// Can't withdraw you are pooor
-// 10
-
-// err := .... -> 앞으로 흔하게 쓰게 될 것. 항상 error를 체크해야 한다.
