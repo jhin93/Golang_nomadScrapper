@@ -1,14 +1,11 @@
 package something
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func sayBye() {
 	fmt.Println("Bye")
 }
 
-//SayHello gonna exported.
 func SayHello() {
-	fmt.Println("Hello, i'm exported")
+	fmt.Println("Hello")
 }
