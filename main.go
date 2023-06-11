@@ -10,8 +10,8 @@ func lenAndUpper(name string) (int, string) {
 }
 
 func main() {
-	totalLenth, upperName := lenAndUpper("nico")
-	fmt.Println(totalLenth, upperName)
+	totalLenth, _ := lenAndUpper("nico") // _는 value를 무시한다.
+	fmt.Println(totalLenth)
 }
 
-// result : 4 NICO
+// result : 4
