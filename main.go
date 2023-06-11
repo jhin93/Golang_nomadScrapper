@@ -16,4 +16,4 @@ func main() {
 	fmt.Println(totalLenth, uppercase)
 }
 
-// result : 4
+// result : 4 NICO
