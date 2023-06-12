@@ -5,8 +5,8 @@ import (
 )
 
 func superAdd(numbers ...int) int {
-	for index, number := range numbers { // 'numbers'에 'range' 명령어로 loopfmf
-		fmt.Println(index, number)
+	for i := 0; i < len(numbers); i++ {
+		fmt.Println(numbers[i])
 	}
 	return 1
 }
