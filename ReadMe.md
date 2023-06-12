@@ -60,3 +60,15 @@ func main() {
 	// result 10 2
 }
 ```
+메모리주소
+```
+package main
+
+import "fmt"
+
+func main() {
+	a := 2
+	b := 5
+	fmt.Println(&a, &b)
+}
+```
