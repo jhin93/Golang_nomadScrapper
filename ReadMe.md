@@ -86,11 +86,15 @@ func main() {
 변수에 다른값 할당 후 메모리 주소값 출력
 ```
 package main
+
 import "fmt"
+
 func main() {
-	a := 2
-	b := 5
-	fmt.Println(&a, &b)
+    a := 2
+    b := &a
+    a = 5
+    fmt.Println(*b)
+    // 5
 }
 ```
 
