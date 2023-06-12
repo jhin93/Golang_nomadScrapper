@@ -72,5 +72,5 @@ func main() {
 	b := 5
 	fmt.Println(&a, &b)
 }
-
+// 0xc0000a6018 0xc0000a6020
 ```
