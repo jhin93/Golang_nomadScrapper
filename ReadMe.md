@@ -97,4 +97,17 @@ func main() {
     // 5
 }
 ```
+포인터(*)에 다른 값을 할당해서 원본 데이터값 변경
+```
+package main
 
+import "fmt"
+
+func main() {
+	a := 2
+	b := &a
+	*b = 20 // b를 이용해서 a를 업데이트
+	fmt.Println(a)
+	//20
+}
+```
