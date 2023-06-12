@@ -74,3 +74,12 @@ func main() {
 }
 // 0xc0000a6018 0xc0000a6020
 ```
+메모리주소값 출력
+```
+func main() {
+	a := 2
+	b := &a
+	fmt.Println(*b)
+}
+// 2
+```
