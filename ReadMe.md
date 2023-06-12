@@ -46,3 +46,17 @@ func main() {
 // I'm done - 함수 lenAndUpper 가 실행되고 난 이후 defer에 의해 출력됨
 // 4 NICO - 함수 main에 의해 출력
 ```
+포인터
+```
+package main
+
+import "fmt"
+
+func main() {
+	a := 2
+	b := a // b는 a의 value를 복사한다.
+	a = 10
+	fmt.Println(a, b)
+	// result 10 2
+}
+```
