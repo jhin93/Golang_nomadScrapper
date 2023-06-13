@@ -127,3 +127,10 @@ func main() {
 }
 
 ```
+*에러케이스 : 
+➜  learngo git:(master) ✗ go run main.go 
+main.go:6:2: no required module provides package github.com/jhin93/learngo/banking: go.mod file not found in current directory or any parent directory; see 'go help modules'
+
+해결책 :
+go mod int '소스루트'
+ex) go mod init github.com/jhin93/learngo
