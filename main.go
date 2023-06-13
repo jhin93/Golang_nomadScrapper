@@ -10,6 +10,6 @@ type person struct {
 
 func main() {
 	favFood := []string{"kimchi", "ramen"}
-	nico := person{"nico", 12, favFood}
+	nico := person{name: "nico", age: 12, favFood: favFood}
 	fmt.Println(nico)
 }
