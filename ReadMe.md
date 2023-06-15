@@ -1,7 +1,7 @@
 
 함수(func) 여러 return value 반환 에시
 
-```
+```java
 package main
 
 import (
@@ -23,7 +23,7 @@ func main() {
 
 'defer'는 함수 실행이 종료된 이후 필요한 로직을 실행하게 해주는 기능이다.
 
-```
+```java
 import (
 	"fmt"
 	"strings"
@@ -46,8 +46,9 @@ func main() {
 // I'm done - 함수 lenAndUpper 가 실행되고 난 이후 defer에 의해 출력됨
 // 4 NICO - 함수 main에 의해 출력
 ```
+
 포인터
-```
+```java
 package main
 
 import "fmt"
@@ -62,7 +63,7 @@ func main() {
 ```
 
 메모리주소
-```
+```java
 package main
 
 import "fmt"
@@ -74,8 +75,9 @@ func main() {
 }
 // 0xc0000a6018 0xc0000a6020
 ```
+
 메모리주소값 출력
-```
+```java
 func main() {
 	a := 2
 	b := &a
@@ -134,3 +136,27 @@ main.go:6:2: no required module provides package github.com/jhin93/learngo/banki
 해결책 :  
 go mod int '소스루트'. 
 ex) go mod init github.com/jhin93/learngo. 
+
+
+pointer(*) 타입은 '주소를 저장'하는 타입이다.  
+```java
+// NewAccount creates Account
+func NewAccount(owner string) *Account { 
+	// 주소를 저장하는 타입을 'pointer 타입'이라고 한다. 'pointer 타입' 은 '*'과 주소를 가진 데이터의 형태가 결합된 형태다(ex var ptr *int).
+	// 이 함수의 리턴 타입인 *Account는 '구조체 Account 형태의 데이터의 주소'를 의미한다.
+	// 그렇기 때문에 변수 account(구조체 Account 형태의 데이터)의 주소, 즉 &account가 리턴값이 되어야 한다.
+	account := Account{owner: owner, balance: 0}
+	return &account
+}
+
+```
+pointer 타입 예시  
+```java
+var x int = 42
+var ptr *int = &x
+
+fmt.Println(*ptr) // 출력: 42
+
+fmt.Println(ptr)  // 출력: 0xc00010e008 ptr은 x 변수의 주소를 저장
+fmt.Println(&ptr) // 출력: 0xc000106018 &ptr은 ptr 변수 자체의 주소
+```
