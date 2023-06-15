@@ -14,3 +14,9 @@ func NewAccount(owner string) *Account {
 	account := Account{owner: owner, balance: 0}
 	return &account
 }
+
+// '메소드'는 하나를 제외하고 함수와 작성방식이 동일하다
+// func와 함수이름 사이에 Account 타입의 변수 'a'와 그 타입 'Account'를 적어준다.
+func (a Account) Deposit(amount int) {
+
+}
