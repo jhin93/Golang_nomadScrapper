@@ -23,7 +23,7 @@ func main() {
 
 'defer'는 함수 실행이 종료된 이후 필요한 로직을 실행하게 해주는 기능이다.
 
-```
+```java
 import (
 	"fmt"
 	"strings"
@@ -46,8 +46,9 @@ func main() {
 // I'm done - 함수 lenAndUpper 가 실행되고 난 이후 defer에 의해 출력됨
 // 4 NICO - 함수 main에 의해 출력
 ```
+
 포인터
-```
+```java
 package main
 
 import "fmt"
@@ -62,7 +63,7 @@ func main() {
 ```
 
 메모리주소
-```
+```java
 package main
 
 import "fmt"
@@ -74,8 +75,9 @@ func main() {
 }
 // 0xc0000a6018 0xc0000a6020
 ```
+
 메모리주소값 출력
-```
+```java
 func main() {
 	a := 2
 	b := &a
@@ -137,7 +139,7 @@ ex) go mod init github.com/jhin93/learngo.
 
 
 pointer(*) 타입은 '주소를 저장'하는 타입이다.  
-```
+```java
 // NewAccount creates Account
 func NewAccount(owner string) *Account { 
 	// 주소를 저장하는 타입을 'pointer 타입'이라고 한다. 'pointer 타입' 은 '*'과 주소를 가진 데이터의 형태가 결합된 형태다(ex var ptr *int).
@@ -147,4 +149,14 @@ func NewAccount(owner string) *Account {
 	return &account
 }
 
+```
+pointer 타입 예시  
+```java
+var x int = 42
+var ptr *int = &x
+
+fmt.Println(*ptr) // 출력: 42
+
+fmt.Println(ptr)  // 출력: 0xc00010e008 ptr은 x 변수의 주소를 저장
+fmt.Println(&ptr) // 출력: 0xc000106018 &ptr은 ptr 변수 자체의 주소
 ```
