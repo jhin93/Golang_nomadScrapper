@@ -150,7 +150,7 @@ func NewAccount(owner string) *Account {
 }
 
 ```
-pointer 타입123 예시  
+pointer 타입 예시  
 ```java
 var x int = 42
 var ptr *int = &x
