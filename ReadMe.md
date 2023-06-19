@@ -160,3 +160,10 @@ fmt.Println(*ptr) // 출력: 42
 fmt.Println(ptr)  // 출력: 0xc00010e008 ptr은 x 변수의 주소를 저장
 fmt.Println(&ptr) // 출력: 0xc000106018 &ptr은 ptr 변수 자체의 주소
 ```
+
+
+
+
+
+
+
