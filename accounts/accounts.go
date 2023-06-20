@@ -17,7 +17,7 @@ func NewAccount(owner string) *Account {
 }
 
 // Deposit x amount on your account
-func (a *Account) Deposit(amount int) { // 포인터를 적용함으로써 Deposit 메소드를 호출한 것(main.go의 account)을 사용하라는 것. 복사본이 아니고.
+func (a *Account) Deposit(amount int) {
 	fmt.Println("Gonna deposit", amount)
 	a.balance += amount
 }
