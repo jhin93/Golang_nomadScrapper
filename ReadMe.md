@@ -160,3 +160,32 @@ fmt.Println(*ptr) // 출력: 42
 fmt.Println(ptr)  // 출력: 0xc00010e008 ptr은 x 변수의 주소를 저장
 fmt.Println(&ptr) // 출력: 0xc000106018 &ptr은 ptr 변수 자체의 주소
 ```
+
+메소드(Method) 
+```
+// Account struct
+type Account struct {
+	owner   string
+	balance int
+}
+
+// '메소드'는 하나를 제외하고 함수와 작성방식이 동일하다
+// func와 함수이름 사이에 Account 타입의 변수 'a'와 그 타입 'Account'를 적어준다. 이때 'a'를 'receiver' 라고 한다.
+// receiver 작성 규칙 1. struct의 첫글자를 따서 소문자로 지어야 한다.
+// Deposit x amount on your account
+func (a Account) Deposit(amount int) {
+	a.balance += amount
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
