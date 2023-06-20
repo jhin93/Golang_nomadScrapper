@@ -1,5 +1,9 @@
 package accounts
 
+import (
+	"fmt"
+)
+
 // Account struct
 type Account struct {
 	owner   string
@@ -20,5 +24,11 @@ func NewAccount(owner string) *Account {
 // receiver 작성 규칙 1. struct의 첫글자를 따서 소문자로 지어야 한다.
 // Deposit x amount on your account
 func (a Account) Deposit(amount int) {
+	fmt.Println("Gonna deposit", amount)
 	a.balance += amount
+}
+
+// Balance of your account
+func (a Account) Balance() int {
+	return a.balance
 }
