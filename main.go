@@ -6,5 +6,5 @@ import (
 
 func main() {
 	account := accounts.NewAccount("nico")
-	account.Deposit()
+	account.Deposit(10)
 }
