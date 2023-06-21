@@ -2,7 +2,6 @@ package accounts
 
 import (
 	"errors"
-	"fmt"
 )
 
 // Account struct
@@ -19,7 +18,6 @@ func NewAccount(owner string) *Account {
 
 // Deposit x amount on your account
 func (a *Account) Deposit(amount int) {
-	fmt.Println("Gonna deposit", amount)
 	a.balance += amount
 }
 
