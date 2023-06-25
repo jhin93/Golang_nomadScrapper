@@ -204,5 +204,10 @@ func main() {
 func은 독립적인 함수를 정의하는 데 사용되고, method는 특정 타입과 관련된 함수를 정의하는 데 사용됩니다. func은 어떤 타입에도 속하지 않고 독립적으로 사용될 수 있으며, method는 특정 타입과 연결되어 해당 타입의 변수에서 호출됩니다.
 
 
-
-
+Go가 내부적으로 호출하는(String)을 메소드를 사용하는 방법  
+```java
+func (a Account) String() string {
+	return fmt.Sprint(a.Owner(), "'s account. \nHas: ", a.Balance())
+}
+// 'String'메소드는 fmt.Println()을 호출할 때 Go가 내부적으로 자동으로 호출하는 메소드이다. 이를 위와 같이 변형하면, fmt.Println() 실행시 적용된다.
+```
