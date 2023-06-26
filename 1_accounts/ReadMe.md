@@ -134,8 +134,8 @@ func main() {
 main.go:6:2: no required module provides package github.com/jhin93/learngo/banking: go.mod file not found in current directory or any parent directory; see 'go help modules'  
 
 해결책 :  
-go mod int '소스루트'. 
-ex) go mod init github.com/jhin93/learngo. 
+go mod init '소스루트' 
+ex) go mod init github.com/jhin93/learngo 
 
 
 pointer(*) 타입은 '주소를 저장'하는 타입이다.  
