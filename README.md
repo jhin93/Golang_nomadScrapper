@@ -259,3 +259,5 @@ func (a Account) String() string {
 }
 // 'String'메소드는 fmt.Println()을 호출할 때 Go가 내부적으로 자동으로 호출하는 메소드이다. 이를 위와 같이 변형하면, fmt.Println() 실행시 적용된다.
 ```
+
+
