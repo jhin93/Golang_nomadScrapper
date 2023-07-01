@@ -6,6 +6,7 @@ import "errors"
 type Dictionary map[string]string
 
 var errNotFound = errors.New("Not Found")
+var errWordExists = errors.New("That word already exists")
 
 // Search for a word
 func (d Dictionary) Search(word string) (string, error) {
@@ -16,4 +17,16 @@ func (d Dictionary) Search(word string) (string, error) {
 		return value, nil
 	}
 	return "", errNotFound // 찾는 값이 없으니까 string은 "", 에러는 미리 만들어둔 에러변수를 반환한다.
+}
+
+// Add a word to the dictionary
+func (d Dictionary) Add(word, def string) error {
+	_, err := d.Search(word)
+	switch err {
+	case errNotFound:
+		d[word] = def
+	case nil:
+		return errWordExists
+	}
+	return nil
 }
