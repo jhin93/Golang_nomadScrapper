@@ -29,7 +29,9 @@ func main() {
 		}
 		results[url] = result
 	}
-	fmt.Println(results)
+	for url, result := range results {
+		fmt.Println(url, result)
+	}
 }
 
 func hitURL(url string) error {
