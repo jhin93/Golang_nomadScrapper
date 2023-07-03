@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 func main() {
 	urls := []string{
@@ -16,5 +19,12 @@ func main() {
 	}
 	for _, url := range urls {
 		fmt.Println(url)
+	}
+}
+
+func hitURL(url string) {
+	resp, err := http.Get(url)
+	if err != nil {
+
 	}
 }
