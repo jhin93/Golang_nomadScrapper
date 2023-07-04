@@ -12,10 +12,11 @@ func main() {
 	// 변수 := make(chan 채널을통해보낼타입)
 	c := make(chan bool)
 	people := [2]string{"nico", "flynn"}
-	for _, person := range people { // 채널을 두 함수(isSexy nico, isSexy flynn)로 보냄.
+	// 채널을 두 함수(isSexy nico, isSexy flynn)로 보냄.
+	for _, person := range people {
 		go isSexy(person, c)
 	}
-	result := <-c // goroutine으로부터 보내진 메시지를 받는 방법
+	result := <-c // 채널로부터 보내진 메시지를 받는 방법
 	fmt.Println(result)
 }
 
