@@ -20,3 +20,10 @@ func isSexy(person string, c chan string) {
 	time.Sleep(time.Second * 3)
 	c <- person + " is sexy"
 }
+
+// 결과
+// dal is sexy
+// flynn is sexy
+// nico is sexy
+// japanguy is sexy
+// larry is sexy
