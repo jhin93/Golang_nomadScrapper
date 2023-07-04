@@ -19,9 +19,19 @@ func main() {
 	// time.Sleep()이 없어도 메인함수가 바로 종료되지 않고 기다린다.
 	// 채널로부터 뭔가를 받을 때, 메인함수는 뭔가 답을 받을때까지 기다린다.
 	fmt.Println(<-c)
+	fmt.Println(<-c)
+	// fmt.Println(<-c) 이런식으로 goroutine을 초과해서 실행하려 하면 deadlock이 뜬다. 이미 모든 goroutine이 끝났기 때문.
 }
 
 func isSexy(person string, c chan bool) { // 채널을 통해 보낼 타입이 bool이기에 같이 적어줌(c chan bool).
 	time.Sleep(time.Second * 5) // 두 함수(isSexy nico, isSexy flynn)는 5초 후에 true 라는 메시지를 나에게 2개 보낸다.
-	c <- true                   // goroutine으로부터 return을 받는 대신에 채널을 통해 메시지를 전달한다.
+	fmt.Println(person)
+	c <- true // goroutine으로부터 return을 받는 대신에 채널을 통해 메시지를 전달한다.
 }
+
+// 결과 :
+// nico
+// true
+// flynn
+// true
+// 둘은 엄밀히 동시에 끝난 것.
