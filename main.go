@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -14,6 +15,8 @@ func main() {
 	for _, person := range people { // 채널을 두 함수(isSexy nico, isSexy flynn)로 보냄.
 		go isSexy(person, c)
 	}
+	result := <-c // goroutine으로부터 보내진 메시지를 받는 방법
+	fmt.Println(result)
 }
 
 func isSexy(person string, c chan bool) { // 채널을 통해 보낼 타입이 bool이기에 같이 적어줌(c chan bool).
