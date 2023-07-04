@@ -7,18 +7,13 @@ import (
 
 func main() {
 	c := make(chan string)
-	people := [2]string{"nico", "flynn"}
+	people := [5]string{"nico", "flynn", "dal", "japanguy", "larry"}
 	for _, person := range people {
 		go isSexy(person, c)
 	}
-	fmt.Println("Waiting for messages")
-	resultOne := <-c // 첫번째 메세지를 기다림. 그게 뭐든 간에 resultOne에 넣음
-	resultTwo := <-c // 두번째 메세지를 기다림. 그게 뭐든 간에 resultTwo에 넣음
-	resultThree := <-c
-	fmt.Println("Received this message : ", resultOne) // <-c는 채널로부터 메시지를 얻고 있다는 뜻. 메세지 한개를 얻으면, 다음 줄로 넘어감.
-	// <-c 는 메세지를 기다리는 것. 이걸 blocking operation이라고 부른다. 프로그램이 메세지를 받을 때까지 멈추는 것.
-	fmt.Println("Received this message : ", resultTwo) // 이 줄의 코드도 메세지를 기다리라는 뜻. 메세지를 받을 때까지 기다리고 받으면 그 다음 줄을 진행함.
-	fmt.Println("Received this message : ", resultThree)
+	for i := 0; i < len(people); i++ {
+		fmt.Println(<-c) // 5개의 메세지 리시버를 만드는 것.
+	}
 }
 
 func isSexy(person string, c chan string) {
