@@ -1,20 +1,22 @@
 package main
 
 import (
-	"fmt"
 	"time"
 )
 
 func main() {
-	// 메인함수는 내부의 각종 함수들의 결과를 저장하는 곳. goroutines와 커뮤니케이션하는 방법이 있다.
-	go sexyCount("nico")
-	go sexyCount("flynn")
-	time.Sleep(time.Second * 5)
+	// channel은 goroutine과 메인함수, 혹은 goroutine 간의 커뮤니케이션을 하는 방법이다.
+	// channel(chan)을 isSexy로 보내고, 그로 인해 isSexy는 메인함수랑 커뮤니케이션 할 수 있게 된다.
+	// 채널 만드는 법
+	// 변수 := make(chan 채널을통해보낼타입)
+	c := make(chan bool)
+	people := [2]string{"nico", "flynn"}
+	for _, person := range people {
+		go isSexy(person, c) // 이런식으로 채널(c)을 isSexy로 보내줌
+	}
 }
 
-func sexyCount(person string) {
-	for i := 0; i < 10; i++ {
-		fmt.Println(person, "is sexy", i)
-		time.Sleep(time.Second)
-	}
+func isSexy(person string, c chan bool) bool { // 채널을 통해 보낼 타입이 bool이기에 같이 적어줌(c chan bool).
+	time.Sleep(time.Second * 5)
+	return true
 }
