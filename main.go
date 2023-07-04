@@ -16,7 +16,7 @@ func main() {
 	}
 }
 
-func isSexy(person string, c chan bool) bool { // 채널을 통해 보낼 타입이 bool이기에 같이 적어줌(c chan bool).
+func isSexy(person string, c chan bool) { // 채널을 통해 보낼 타입이 bool이기에 같이 적어줌(c chan bool).
 	time.Sleep(time.Second * 5)
-	return true
+	c <- true // c라는 channel에다가 true를 보내준다.
 }
