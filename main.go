@@ -18,8 +18,7 @@ func main() {
 	}
 	// time.Sleep()이 없어도 메인함수가 바로 종료되지 않고 기다린다.
 	// 채널로부터 뭔가를 받을 때, 메인함수는 뭔가 답을 받을때까지 기다린다.
-	result := <-c // 채널로부터 보내진 메시지를 받는 방법
-	fmt.Println(result)
+	fmt.Println(<-c)
 }
 
 func isSexy(person string, c chan bool) { // 채널을 통해 보낼 타입이 bool이기에 같이 적어줌(c chan bool).
