@@ -11,12 +11,12 @@ func main() {
 	// 변수 := make(chan 채널을통해보낼타입)
 	c := make(chan bool)
 	people := [2]string{"nico", "flynn"}
-	for _, person := range people {
-		go isSexy(person, c) // 이런식으로 채널(c)을 isSexy로 보내줌
+	for _, person := range people { // 채널을 두 함수(isSexy nico, isSexy flynn)로 보냄.
+		go isSexy(person, c)
 	}
 }
 
 func isSexy(person string, c chan bool) { // 채널을 통해 보낼 타입이 bool이기에 같이 적어줌(c chan bool).
-	time.Sleep(time.Second * 5)
-	c <- true // c라는 channel에다가 true를 보내준다.
+	time.Sleep(time.Second * 5) // 두 함수(isSexy nico, isSexy flynn)는 5초 후에 true 라는 메시지를 나에게 2개 보낸다.
+	c <- true                   // goroutine으로부터 return을 받는 대신에 채널을 통해 메시지를 전달한다.
 }
