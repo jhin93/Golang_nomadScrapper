@@ -263,8 +263,47 @@ func (a Account) String() string {
 // 'String'메소드는 fmt.Println()을 호출할 때 Go가 내부적으로 자동으로 호출하는 메소드이다. 이를 위와 같이 변형하면, fmt.Println() 실행시 적용된다.
 ```
 
+채널(Channel)  
+```java
+package main
 
+import (
+	"fmt"
+	"time"
+)
 
+func main() {
+	// channel은 goroutine과 메인함수, 혹은 goroutine 간의 커뮤니케이션을 하는 방법이다.
+	// channel(chan)을 isSexy로 보내고, 그로 인해 isSexy는 메인함수랑 커뮤니케이션 할 수 있게 된다.
+	// 채널 만드는 법
+	// 변수 := make(chan 채널을통해보낼타입)
+	c := make(chan bool)
+	people := [2]string{"nico", "flynn"}
+	// 채널을 두 함수(isSexy nico, isSexy flynn)로 보냄.
+	for _, person := range people {
+		go isSexy(person, c)
+	}
+	// time.Sleep()이 없어도 메인함수가 바로 종료되지 않고 기다린다.
+	// 채널로부터 뭔가를 받을 때, 메인함수는 뭔가 답을 받을때까지 기다린다.
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+	// fmt.Println(<-c) 이런식으로 goroutine을 초과해서 실행하려 하면 deadlock이 뜬다. 이미 모든 goroutine이 끝났기 때문.
+}
+
+func isSexy(person string, c chan bool) { // 채널을 통해 보낼 타입이 bool이기에 같이 적어줌(c chan bool).
+	time.Sleep(time.Second * 5) // 두 함수(isSexy nico, isSexy flynn)는 5초 후에 true 라는 메시지를 나에게 2개 보낸다.
+	fmt.Println(person)
+	c <- true // goroutine으로부터 return을 받는 대신에 채널을 통해 메시지를 전달한다.
+}
+
+// 결과 :
+// nico
+// true
+// flynn
+// true
+// 둘은 엄밀히 동시에 끝난 것.
+
+```
 
 
 
