@@ -3,11 +3,12 @@ package main
 import (
 	"errors"
 	"fmt"
+	"net/http"
 )
 
 type result struct {
 	url    string
-	status int
+	status string
 }
 
 var errRequestFailed = errors.New("Request failed")
@@ -31,8 +32,13 @@ func main() {
 	}
 }
 
-// 이 채널은 데이터를 받을 순 없고 보낼 수만 있다.
-func hitURL(url string, c chan<- result) { // send-only를 'chan<-' 로 표현한다.
+func hitURL(url string, c chan<- result) { // <-c 는 channel로부터 받는다는 뜻인데, chan<-는 channel이 받는 역할만 한다는 뜻이다. 즉 <-c 채널로부터 받는 것은 못하는 것.
 	fmt.Println("Checking:", url)
-	fmt.Println(<-c)
+	resp, err := http.Get(url)
+	status := "OK"
+	if err != nil || resp.StatusCode >= 400 {
+		status = "FAILED"
+	}
+	// 마지막엔 result를 우리 채널로 보낸다.
+	c <- result{url: url, status: status}
 }
