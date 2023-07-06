@@ -264,6 +264,9 @@ func (a Account) String() string {
 ```
 
 채널(Channel)  
+채널은 주로 <- 연산자를 사용하여 데이터를 보내고 받습니다.  
+데이터를 채널에 보내기 위해서는 채널 <- 데이터와 같이 사용하고(ex c <- result),   
+채널에서 데이터를 받기 위해서는 데이터 <- 채널과 같이 사용합니다(ex result <- c).  
 ```java
 package main
 
