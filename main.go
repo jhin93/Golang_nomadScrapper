@@ -3,18 +3,18 @@ package main
 import (
 	"errors"
 	"fmt"
-	"net/http"
 )
 
 type result struct {
 	url    string
-	status string
+	status int
 }
 
 var errRequestFailed = errors.New("Request failed")
 
 func main() {
-	var results = make(map[string]string)
+	results := make(map[string]string)
+	c := make(chan result)
 	urls := []string{
 		"https://www.airbnb.com/",
 		"https://www.google.com/",
@@ -27,24 +27,12 @@ func main() {
 		"https://academy.nomadcoders.co/",
 	}
 	for _, url := range urls {
-		result := "OK"
-		err := hitURL(url)
-		if err != nil {
-			result = "FAILED"
-		}
-		results[url] = result
-	}
-	for url, result := range urls {
-		fmt.Println(url, result)
+		hitURL(url, c)
 	}
 }
 
-func hitURL(url string) error {
+// 이 채널은 데이터를 받을 순 없고 보낼 수만 있다.
+func hitURL(url string, c chan<- result) { // send-only를 'chan<-' 로 표현한다.
 	fmt.Println("Checking:", url)
-	resp, err := http.Get(url)
-	if err != nil || resp.StatusCode >= 400 {
-		fmt.Println(err, resp.StatusCode)
-		return errRequestFailed
-	}
-	return nil
+	fmt.Println(<-c)
 }
