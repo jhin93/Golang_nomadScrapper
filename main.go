@@ -11,19 +11,14 @@ func main() {
 	for _, person := range people {
 		go isSexy(person, c)
 	}
-	for i := 0; i < len(people); i++ {
-		fmt.Println(<-c) // 5개의 메세지 리시버를 만드는 것.
-	}
+	// for i := 0; i < len(people); i++ {
+	// 	fmt.Println("waiting for", i)
+	// 	fmt.Println(<-c)
+	// }
+	fmt.Println(<-c)
 }
 
 func isSexy(person string, c chan string) {
 	time.Sleep(time.Second * 3)
 	c <- person + " is sexy"
 }
-
-// 결과
-// dal is sexy
-// flynn is sexy
-// nico is sexy
-// japanguy is sexy
-// larry is sexy
