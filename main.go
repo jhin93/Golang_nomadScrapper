@@ -14,7 +14,6 @@ type result struct {
 var errRequestFailed = errors.New("Request failed")
 
 func main() {
-	results := make(map[string]string)
 	c := make(chan result)
 	urls := []string{
 		"https://www.airbnb.com/",
@@ -28,7 +27,11 @@ func main() {
 		"https://academy.nomadcoders.co/",
 	}
 	for _, url := range urls {
-		hitURL(url, c)
+		go hitURL(url, c)
+	}
+
+	for i := 0; i < len(urls); i++ {
+		fmt.Println(<-c) // goroutine으로 부터 받은 메시지를 출력
 	}
 }
 
