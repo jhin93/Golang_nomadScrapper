@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 )
 
@@ -33,9 +34,10 @@ func main() {
 	for i := 0; i < len(urls); i++ {
 		result := <-c
 		results[result.url] = result.status
-		// goroutine으로 부터 받은 메시지를 출력
-		// 이 반복문이 끝나는 시간은, url 체크하는데 가장 오래걸리는 사이트 체크하는 시간과 동일. 병렬적으로 실행되는 것.
-		// 가장 늦은 메세지를 받으면 프로그램이 완료되는 것.
+	}
+
+	for url, status := range results {
+		fmt.Println(url, status)
 	}
 }
 
