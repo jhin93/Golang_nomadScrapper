@@ -402,3 +402,9 @@ func hitURL(url string, c chan<- requestResult) { // c(변수 이름) chan<-(메
 
 
 
+
+
+
+
+
+
