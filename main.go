@@ -4,55 +4,55 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
-var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?&searchword=python"
+var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?=&searchword=python&recruitPage=1&recruitSort=relation&recruitPageCount=40&inner_com_type=&company_cd=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C9%2C10&show_applied=&quick_apply=&except_read=&ai_head_hunting=&mainSearch=n"
 
+// var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?&searchword=python"
 // var baseURL string = "https://kr.indeed.com/jobs?q=python&limit=50"
-// var baseURL string = "https://www.airbnb.com/"
-// var baseURL string = "https://dict.naver.com/"
 
 func main() {
-	// 1. 페이지들을 받아오기
-	// 2. 각각의 페이지 방문하기
-	// 3. 페이지로부터 job을 추출하기
-	// 4. 추출한 job을 엑셀에 집어넣기
 	totalPages := getPages()
 	fmt.Println(totalPages)
+	for i := 1; i <= totalPages; i++ {
+		getPage(i)
+	}
 }
 
-// 얼마나 많은 페이지가 있는지 알려준다.
+func getPage(page int) {
+	oldPageStr := "recruitPage=1"
+	newPageStr := fmt.Sprintf("recruitPage=%d", page)
+	newURL := strings.Replace(baseURL, oldPageStr, newPageStr, 1)
+	fmt.Println(newURL)
+}
+
 func getPages() int {
 	pages := 0
 	res, err := http.Get(baseURL)
 	checkErr(err)
 	checkCode(res)
 
-	// 이 getPages 함수가 끝났을 때 아래 goquery 문서를 닫아야 함.
-	// 왜냐하면 goquery의 res.Body는 기본적으로 IO(input & output)이기 때문.
-	// 이렇게 메모리가 새어나가는 걸 막을 수 있음.
 	defer res.Body.Close()
 
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	checkErr(err)
 
-	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) { // .pagination 이라는 클래스(".pagination) 안에 얼마나 많은(.Length()) 링크("a")가 들어있는가
+	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) {
 		pages = s.Find("a").Length()
 	})
 
 	return pages
 }
 
-// 에러 체크 함수
 func checkErr(err error) {
 	if err != nil {
 		log.Fatalln(err)
 	}
 }
 
-// res 이상 체크 함수
 func checkCode(res *http.Response) {
 	if res.StatusCode != 200 {
 		log.Fatalln("Request failed with Status:", res.StatusCode)
