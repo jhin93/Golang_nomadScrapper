@@ -4,7 +4,7 @@ https://pkg.go.dev/std
 
 함수(func) 여러 return value 반환 에시
 
-```java
+```golang
 package main
 
 import (
@@ -26,7 +26,7 @@ func main() {
 
 'defer'는 함수 실행이 종료된 이후 필요한 로직을 실행하게 해주는 기능이다.
 
-```java
+```golang
 import (
 	"fmt"
 	"strings"
@@ -51,7 +51,7 @@ func main() {
 ```
 
 포인터
-```java
+```golang
 package main
 
 import "fmt"
@@ -66,7 +66,7 @@ func main() {
 ```
 
 메모리주소
-```java
+```golang
 package main
 
 import "fmt"
@@ -80,7 +80,7 @@ func main() {
 ```
 
 메모리주소값 출력
-```java
+```golang
 func main() {
 	a := 2
 	b := &a
@@ -89,7 +89,7 @@ func main() {
 // 2
 ```
 변수에 다른값 할당 후 메모리 주소값 출력
-```
+```golang
 package main
 
 import "fmt"
@@ -103,7 +103,7 @@ func main() {
 }
 ```
 포인터(*)에 다른 값을 할당해서 원본 데이터값 변경
-```
+```golang
 package main
 
 import "fmt"
@@ -117,7 +117,7 @@ func main() {
 }
 ```
 slice 사용 예제
-```
+```golang
 package main
 
 import "fmt"
@@ -142,7 +142,7 @@ ex) go mod init github.com/jhin93/learngo.
 
 
 pointer(*) 타입은 '주소를 저장'하는 타입이다.  
-```java
+```golang
 // NewAccount creates Account
 func NewAccount(owner string) *Account { 
 	// 주소를 저장하는 타입을 'pointer 타입'이라고 한다. 'pointer 타입' 은 '*'과 주소를 가진 데이터의 형태가 결합된 형태다(ex var ptr *int).
@@ -154,7 +154,7 @@ func NewAccount(owner string) *Account {
 
 ```
 pointer 타입 예시  
-```java
+```golang
 var x int = 42
 var ptr *int = &x
 
@@ -165,7 +165,7 @@ fmt.Println(&ptr) // 출력: 0xc000106018 &ptr은 ptr 변수 자체의 주소
 ```
 
 메소드(Method)
-```java
+```golang
 // Account struct
 type Account struct {
 	owner   string
@@ -188,7 +188,7 @@ func (a Account) Deposit(amount int) {
 ```
 
 메소드 2(직접 만든 type에 메소드를 적용하는 예제)
-```java
+```golang
 mydict.go
 	package mydict
 	
@@ -236,7 +236,7 @@ main.go
 ```
 
 조건문 
-```java
+```golang
 import "fmt"
 
 func canIDrink(age int) bool {
@@ -256,7 +256,7 @@ func은 독립적인 함수를 정의하는 데 사용되고, method는 특정 �
 
 
 Go가 내부적으로 호출하는(String)을 메소드를 사용하는 방법  
-```java
+```golang
 func (a Account) String() string {
 	return fmt.Sprint(a.Owner(), "'s account. \nHas: ", a.Balance())
 }
@@ -267,7 +267,7 @@ func (a Account) String() string {
 채널은 주로 <- 연산자를 사용하여 데이터를 보내고 받습니다.  
 데이터를 채널에 보내기 위해서는 채널 <- 데이터와 같이 사용하고(ex c <- result),   
 채널에서 데이터를 받기 위해서는 데이터 <- 채널과 같이 사용합니다(ex result <- c).  
-```java
+```golang
 package main
 
 import (
@@ -309,7 +309,7 @@ func isSexy(person string, c chan bool) { // 채널을 통해 보낼 타입이 b
 ```
 
 채널 루프
-```java
+```golang
 package main
 
 import (
@@ -343,7 +343,7 @@ func isSexy(person string, c chan string) {
 ```
 
 goroutine + 채널 + type + range + 반복문(loop)  
-```java
+```golang
 package main
 
 import (
@@ -418,4 +418,41 @@ age := 30
 formattedString := fmt.Sprintf("My name is %s and I'm %d years old.", name, age)
 fmt.Println(formattedString)
 
+// 위의 예시에서 %s는 문자열을 대체하기 위한 형식 문자열입니다. %d는 10진수 정수를 대체하기 위한 형식 문자열입니다.
+// fmt.Sprintf 함수는 name 변수를 %s에 대응하여 문자열로 대체하고, age 변수를 %d에 대응하여 정수로 대체합니다.
+// 그런 다음, formattedString 변수에는 "My name is Alice and I'm 30 years old."라는 형식화된 문자열이 저장됩니다. 
+
 ```
+
+strings.Replace  
+
+일반적으로, strings.Replace 함수는 세 가지 인자를 받습니다: 1. 원본 문자열 2. 대체할 문자열 3. 대체 횟수입니다.  
+이 함수는 원본 문자열에서 대체할 문자열을 찾아 해당 위치에 새로운 문자열을 삽입하여 새로운 문자열을 생성합니다.  
+
+```golang
+str := "Hello, World!"
+newStr := strings.Replace(str, "Hello", "Hi", 1)
+fmt.Println(newStr)
+//  "Hi, World!"
+```
+
+```golang
+str := "apple apple apple"
+newStr := strings.Replace(str, "apple", "orange", 2)
+fmt.Println(newStr)
+
+// 위의 예시에서 strings.Replace 함수는 str 문자열에서 "apple"을 찾아 "orange"로 대체합니다.
+// 대체 횟수를 2로 설정했으므로, 처음 두 번의 "apple"만 대체됩니다. 따라서 결과는 "orange orange apple"가 출력됩니다.
+// 마지막 "apple"은 대체 횟수에 도달하지 않아 그대로 남게 됩니다.
+```
+
+
+
+
+
+
+
+
+
+
+
