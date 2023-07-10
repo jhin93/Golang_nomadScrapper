@@ -19,12 +19,13 @@ func main() {
 	// 2. 각각의 페이지 방문하기
 	// 3. 페이지로부터 job을 추출하기
 	// 4. 추출한 job을 엑셀에 집어넣기
-	getPages()
-
+	totalPages := getPages()
+	fmt.Println(totalPages)
 }
 
 // 얼마나 많은 페이지가 있는지 알려준다.
 func getPages() int {
+	pages := 0
 	res, err := http.Get(baseURL)
 	checkErr(err)
 	checkCode(res)
@@ -37,13 +38,11 @@ func getPages() int {
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	checkErr(err)
 
-	fmt.Println(doc)
-
 	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) { // .pagination 이라는 클래스(".pagination) 안에 얼마나 많은(.Length()) 링크("a")가 들어있는가
-		fmt.Println(s.Find("a").Length())
+		pages = s.Find("a").Length()
 	})
 
-	return 0
+	return pages
 }
 
 // 에러 체크 함수
