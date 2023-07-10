@@ -403,7 +403,7 @@ https://github.com/PuerkitoBio/goquery
 go가 html 내부를 들여다볼 수 있도록 해주는 라이브러리.  
 
 
-
-
+doc.Find() 예시 - 아래 링크에서 'doc.Find'로 검색했을 때 2번째 결과  
+https://pkg.go.dev/github.com/PuerkitoBio/goquery#readme-examples  
 
 
