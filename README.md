@@ -398,10 +398,9 @@ func hitURL(url string, c chan<- requestResult) { // c(변수 이름) chan<-(메
 }
 
 ```
-
-
-
-
+goquery  
+https://github.com/PuerkitoBio/goquery  
+go가 html 내부를 들여다볼 수 있도록 해주는 라이브러리.  
 
 
 
