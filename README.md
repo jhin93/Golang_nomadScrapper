@@ -141,7 +141,7 @@ go mod int '소스루트'.
 ex) go mod init github.com/jhin93/learngo. 
 
 
-pointer(*) 타입은 '주소를 저장'하는 타입이다.  
+포인터(pointer(*)) 타입은 '주소를 저장'하는 타입이다.  
 ```golang
 // NewAccount creates Account
 func NewAccount(owner string) *Account { 
@@ -153,15 +153,15 @@ func NewAccount(owner string) *Account {
 }
 
 ```
-pointer 타입 예시  
+포인터(pointer) 타입 예시  
 ```golang
 var x int = 42
 var ptr *int = &x
 
 fmt.Println(*ptr) // 출력: 42
 
-fmt.Println(ptr)  // 출력: 0xc00010e008 ptr은 x 변수의 주소를 저장
-fmt.Println(&ptr) // 출력: 0xc000106018 &ptr은 ptr 변수 자체의 주소
+fmt.Println(ptr)  // 출력: 0xc00010e008(x 변수의 주소). ptr은 x 변수의 주소를 저장
+fmt.Println(&ptr) // 출력: 0xc000106018(ptr 변수의 주소). &ptr은 ptr 변수 자체의 주소
 ```
 
 메소드(Method)
