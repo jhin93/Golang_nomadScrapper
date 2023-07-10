@@ -11,6 +11,7 @@ import (
 var baseURL string = "https://kr.indeed.com/jobs?q=python&limit=50"
 
 // var baseURL string = "https://www.airbnb.com/"
+// var baseURL string = "https://dict.naver.com/"
 
 func main() {
 	// 1. 페이지들을 받아오기
