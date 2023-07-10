@@ -39,8 +39,8 @@ func getPages() int {
 
 	fmt.Println(doc)
 
-	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) {
-		fmt.Println(s.Html())
+	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) { // .pagination 이라는 클래스(".pagination) 안에 얼마나 많은(.Length()) 링크("a")가 들어있는가
+		fmt.Println(s.Find("a").Length())
 	})
 
 	return 0
