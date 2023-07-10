@@ -407,3 +407,15 @@ doc.Find() 예시 - 아래 링크에서 'doc.Find'로 검색했을 때 2번째 �
 https://pkg.go.dev/github.com/PuerkitoBio/goquery#readme-examples  
 
 
+fmt.Sprintf  
+fmt.Sprintf 함수는 형식화된 문자열을 생성하는 기능을 제공하는 Go 언어의 함수입니다.  
+일반적으로, fmt.Sprintf 함수는 형식 문자열과 해당 형식 문자열에 대응하는 값들을 인자로 받습니다.  
+그런 다음, 형식 문자열에서 % 기호와 특정 문자를 사용하여 값을 대체하고, 새로운 문자열을 반환합니다.  
+예를 들어, 다음은 fmt.Sprintf 함수를 사용하여 형식화된 문자열을 생성하는 예시입니다:  
+```golang
+name := "Alice"
+age := 30
+formattedString := fmt.Sprintf("My name is %s and I'm %d years old.", name, age)
+fmt.Println(formattedString)
+
+```
