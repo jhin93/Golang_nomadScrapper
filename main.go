@@ -8,7 +8,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-var baseURL string = "https://comic.naver.com/webtoon/list?titleId=648419"
+var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?&searchword=python"
 
 // var baseURL string = "https://kr.indeed.com/jobs?q=python&limit=50"
 // var baseURL string = "https://www.airbnb.com/"
@@ -39,7 +39,9 @@ func getPages() int {
 
 	fmt.Println(doc)
 
-	doc.Find(".pagination").Each()
+	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) {
+		fmt.Println(s.Html())
+	})
 
 	return 0
 }
