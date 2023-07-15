@@ -27,6 +27,20 @@ func getPage(page int) {
 	newPageStr := fmt.Sprintf("recruitPage=%d", page)
 	newURL := strings.Replace(baseURL, oldPageStr, newPageStr, 1)
 	fmt.Println(newURL)
+	res, err := http.Get(newURL)
+	checkErr(err)
+	checkCode(res)
+
+	defer res.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(res.Body)
+	checkErr(err)
+
+	searchCards := doc.Find(".item_recruit")
+
+	searchCards.Each(func(i int, s *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
+
+	})
 }
 
 func getPages() int {
@@ -40,7 +54,7 @@ func getPages() int {
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	checkErr(err)
 
-	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) {
+	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) { // func(i int, s *goquery.Selection) 는 Each 메소드에서 사용해야 하는 형식임. Each() -> ()를 비운 상태에서 에러가 알려줌.
 		pages = s.Find("a").Length()
 	})
 
