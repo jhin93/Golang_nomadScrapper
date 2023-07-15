@@ -65,7 +65,7 @@ func getPages() int {
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	checkErr(err)
 
-	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) { // func(i int, s *goquery.Selection) 는 Each 메소드에서 사용해야 하는 형식임. Each() -> ()를 비운 상태에서 에러가 알려줌.
+	doc.Find(".pagination").Each(func(i int, s *goquery.Selection) { // func(i int, s *goquery.Selection) 는 Each 메소드에서 사용해야 하는 형식임. Each()까지만 쓰고 ()를 비운 상태에서 에러가 알려줌.
 		pages = s.Find("a").Length()
 	})
 
