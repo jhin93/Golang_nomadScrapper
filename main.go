@@ -51,6 +51,8 @@ func getPage(page int) {
 		fmt.Println(id)
 		title := card.Find(".area_job>h2").Text()
 		fmt.Println(title)
+		location := card.Find(".area_job>.job_condition span:first-child").Text()
+		fmt.Println(location)
 	})
 }
 
