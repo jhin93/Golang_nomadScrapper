@@ -9,6 +9,14 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+type extractedJob struct {
+	id       string
+	title    string
+	location string
+	salary   string
+	summary  string
+}
+
 var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?=&searchword=python&recruitPage=1&recruitSort=relation&recruitPageCount=40&inner_com_type=&company_cd=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C9%2C10&show_applied=&quick_apply=&except_read=&ai_head_hunting=&mainSearch=n"
 
 // var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?&searchword=python"
@@ -38,9 +46,11 @@ func getPage(page int) {
 
 	searchCards := doc.Find(".item_recruit")
 
-	searchCards.Each(func(i int, s *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
-		id, _ := s.Attr("value")
+	searchCards.Each(func(i int, card *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
+		id, _ := card.Attr("value")
 		fmt.Println(id)
+		title := card.Find(".area_job>h2").Text()
+		fmt.Println(title)
 	})
 }
 
