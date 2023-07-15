@@ -48,11 +48,9 @@ func getPage(page int) {
 
 	searchCards.Each(func(i int, card *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
 		id, _ := card.Attr("value")
-		fmt.Println(id)
 		title := card.Find(".area_job>h2").Text()
-		fmt.Println(title)
 		location := card.Find(".area_job>.job_condition span:first-child").Text()
-		fmt.Println(location)
+		fmt.Println(id, title, location)
 	})
 }
 
