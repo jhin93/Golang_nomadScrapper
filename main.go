@@ -39,7 +39,8 @@ func getPage(page int) {
 	searchCards := doc.Find(".item_recruit")
 
 	searchCards.Each(func(i int, s *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
-
+		id, _ := s.Attr("value")
+		fmt.Println(id)
 	})
 }
 
