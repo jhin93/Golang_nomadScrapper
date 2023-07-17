@@ -48,8 +48,8 @@ func getPage(page int) {
 
 	searchCards.Each(func(i int, card *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
 		id, _ := card.Attr("value")
-		title := card.Find(".area_job>h2").Text()
-		location := card.Find(".area_job>.job_condition span:first-child").Text()
+		title := cleanString(card.Find(".area_job>h2").Text())
+		location := cleanString(card.Find(".area_job>.job_condition span:first-child").Text())
 		fmt.Println(id, title, location)
 	})
 }
@@ -85,5 +85,5 @@ func checkCode(res *http.Response) {
 }
 
 func cleanString(str string) string {
-
+	return strings.TrimSpace((str))
 }
