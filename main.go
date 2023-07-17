@@ -23,14 +23,18 @@ var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?=&searchw
 // var baseURL string = "https://kr.indeed.com/jobs?q=python&limit=50"
 
 func main() {
+	var jobs []extractedJob
 	totalPages := getPages()
 	fmt.Println(totalPages)
 	for i := 1; i <= totalPages; i++ {
-		getPage(i)
+		extractedJobs := getPage(i)           // getPage는 1페이지에 담긴 여러 카드의 정보들을 담은 배열을 반환한다.
+		jobs = append(jobs, extractedJobs...) // append()를 통해 배열들 각각의 contents 들을 또다시 합친다. extractedJobs의 contents 다수를 표현하는 것이 바로 '...' 이다. 즉, 배열들 각각의 contents들을 뽑아내어 합치는 것.
 	}
+	fmt.Println(jobs) // 모든 url의 결과물을 jobs(func main의 jobs)에 담고 반복문이 끝난 다음 맨 마지막에 결과를 도출한다.
 }
 
-func getPage(page int) {
+func getPage(page int) []extractedJob {
+	var jobs []extractedJob // 각각의 정보 카드(extractedJob) 으로 이루어진 slice 타입의 변수 jobs
 	oldPageStr := "recruitPage=1"
 	newPageStr := fmt.Sprintf("recruitPage=%d", page)
 	newURL := strings.Replace(baseURL, oldPageStr, newPageStr, 1)
@@ -47,8 +51,10 @@ func getPage(page int) {
 	searchCards := doc.Find(".item_recruit")
 
 	searchCards.Each(func(i int, card *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
-		extractJob(card)
+		job := extractJob(card)
+		jobs = append(jobs, job)
 	})
+	return jobs // 다수의 job 을 담은 배열 'jobs' 를 반환.
 }
 
 func getPages() int {
@@ -81,13 +87,19 @@ func checkCode(res *http.Response) {
 	}
 }
 
-func extractJob(card *goquery.Selection) {
+func extractJob(card *goquery.Selection) extractedJob {
 	id, _ := card.Attr("value")
 	title := cleanString(card.Find(".area_job>h2").Text())
 	location := cleanString(card.Find(".area_job>.job_condition span:first-child").Text())
 	career := cleanString(card.Find(".area_job>.job_condition span:second-child").Text())
 	sector := cleanString(card.Find(".area_job>.job_sector").Text())
-	fmt.Println(id, title, location, career, sector)
+	return extractedJob{
+		id:       id,
+		title:    title,
+		location: location,
+		career:   career,
+		sector:   sector,
+	}
 }
 
 func cleanString(str string) string {
