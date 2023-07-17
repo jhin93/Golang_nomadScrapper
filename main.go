@@ -85,5 +85,6 @@ func checkCode(res *http.Response) {
 }
 
 func cleanString(str string) string {
-	return strings.TrimSpace((str))
+	// 양쪽 끝 공백은 TrimSpace가 지우고, Fields는 내부 공백을 지운 후 배열에 단어를 담는다. 이후 배열에 담긴 단어들을 join으로 " "로 합친다.
+	return strings.Join(strings.Fields(strings.TrimSpace(str)), " ")
 }
