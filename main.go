@@ -13,8 +13,8 @@ type extractedJob struct {
 	id       string
 	title    string
 	location string
-	salary   string
-	summary  string
+	career   string
+	sector   string
 }
 
 var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?=&searchword=python&recruitPage=1&recruitSort=relation&recruitPageCount=40&inner_com_type=&company_cd=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C9%2C10&show_applied=&quick_apply=&except_read=&ai_head_hunting=&mainSearch=n"
@@ -47,10 +47,7 @@ func getPage(page int) {
 	searchCards := doc.Find(".item_recruit")
 
 	searchCards.Each(func(i int, card *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
-		id, _ := card.Attr("value")
-		title := cleanString(card.Find(".area_job>h2").Text())
-		location := cleanString(card.Find(".area_job>.job_condition span:first-child").Text())
-		fmt.Println(id, title, location)
+		extractJob(card)
 	})
 }
 
@@ -82,6 +79,15 @@ func checkCode(res *http.Response) {
 	if res.StatusCode != 200 {
 		log.Fatalln("Request failed with Status:", res.StatusCode)
 	}
+}
+
+func extractJob(card *goquery.Selection) {
+	id, _ := card.Attr("value")
+	title := cleanString(card.Find(".area_job>h2").Text())
+	location := cleanString(card.Find(".area_job>.job_condition span:first-child").Text())
+	career := cleanString(card.Find(".area_job>.job_condition span:second-child").Text())
+	sector := cleanString(card.Find(".area_job>.job_sector").Text())
+	fmt.Println(id, title, location, career, sector)
 }
 
 func cleanString(str string) string {
