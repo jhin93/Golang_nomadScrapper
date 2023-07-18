@@ -33,6 +33,7 @@ func main() {
 		jobs = append(jobs, extractedJobs...) // append()를 통해 배열들 각각의 contents 들을 또다시 합친다. extractedJobs의 contents 다수를 표현하는 것이 바로 '...' 이다. 즉, 배열들 각각의 contents들을 뽑아내어 합치는 것.
 	}
 	writeJobs(jobs) // 모든 url의 결과물을 jobs(func main의 jobs)에 담고 반복문이 끝난 다음 맨 마지막에 결과를 도출한다.
+	fmt.Println("Done, extracted", len(jobs))
 }
 
 func writeJobs(jobs []extractedJob) {
