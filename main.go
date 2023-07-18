@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -30,7 +32,20 @@ func main() {
 		extractedJobs := getPage(i)           // getPage는 1페이지에 담긴 여러 카드의 정보들을 담은 배열을 반환한다.
 		jobs = append(jobs, extractedJobs...) // append()를 통해 배열들 각각의 contents 들을 또다시 합친다. extractedJobs의 contents 다수를 표현하는 것이 바로 '...' 이다. 즉, 배열들 각각의 contents들을 뽑아내어 합치는 것.
 	}
-	fmt.Println(jobs) // 모든 url의 결과물을 jobs(func main의 jobs)에 담고 반복문이 끝난 다음 맨 마지막에 결과를 도출한다.
+	writeJobs(jobs) // 모든 url의 결과물을 jobs(func main의 jobs)에 담고 반복문이 끝난 다음 맨 마지막에 결과를 도출한다.
+}
+
+func writeJobs(jobs []extractedJob) {
+	file, err := os.Create("jobs.csv") // 파일 이름 jobs.csv
+	checkErr(err)
+
+	w := csv.NewWriter(file) // 파일을 새로 만드는 것
+	defer w.Flush()          // Flush()는 함수가 끝나는 시점에 파일에 데이터를 입력하는 함수
+
+	headers := []string{"ID", "Title", "Location", "Career", "Sector"} // headers는 함수의 윗부분
+
+	wErr := w.Write(headers) // Write 함수로 headers를 w 에 작성.
+	checkErr(wErr)
 }
 
 func getPage(page int) []extractedJob {
