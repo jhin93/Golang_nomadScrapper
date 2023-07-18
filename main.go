@@ -46,6 +46,12 @@ func writeJobs(jobs []extractedJob) {
 
 	wErr := w.Write(headers) // Write 함수로 headers를 w 에 작성.
 	checkErr(wErr)
+
+	for _, job := range jobs {
+		jobSlice := []string{job.id, job.title, job.location, job.career, job.sector}
+		jwErr := w.Write(jobSlice)
+		checkErr((jwErr)) // 여기까지 끝나고 나면 defer w.Flush가 발동해서 데이터가 파일에 입력될 것.
+	}
 }
 
 func getPage(page int) []extractedJob {
