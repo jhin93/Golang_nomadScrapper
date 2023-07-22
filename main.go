@@ -120,7 +120,7 @@ func extractJob(card *goquery.Selection, c chan<- extractedJob) {
 	location := cleanString(card.Find(".area_job>.job_condition span:first-child").Text())
 	career := cleanString(card.Find(".area_job>.job_condition span:second-child").Text())
 	sector := cleanString(card.Find(".area_job>.job_sector").Text())
-	c <- extractedJob{
+	c <- extractedJob{ // 채널에 값 받기
 		id:       id,
 		title:    title,
 		location: location,
