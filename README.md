@@ -263,6 +263,7 @@ func (a Account) String() string {
 // 'String'메소드는 fmt.Println()을 호출할 때 Go가 내부적으로 자동으로 호출하는 메소드이다. 이를 위와 같이 변형하면, fmt.Println() 실행시 적용된다.
 ```
 
+
 고루틴(Goroutine) 예시
 ```golang
 package main
@@ -296,9 +297,7 @@ func main() {
 }
 
 ```
-이 예시에서는 calculateSquare 함수와 calculateCube 함수를 두 개의 goroutine으로 실행합니다.  
-각 함수는 간단한 계산을 수행하여 결과를 출력합니다. 메인 함수에서는 두 함수를 goroutine으로 실행한 후, time.Sleep을 사용하여 메인 함수의 실행이 종료되지 않도록 합니다.  
-결과적으로, Square과 Cube 함수가 동시에 실행되어 5의 제곱과 세제곱이 출력됩니다. 출력 결과는 순서가 일정하지 않을 수 있으며, 이는 goroutine 스케줄링에 따라 달라질 수 있습니다.  
+이 예시에서는 calculateSquare 함수와 calculateCube 함수를 두 개의 goroutine으로 실행합니다. 각 함수는 간단한 계산을 수행하여 결과를 출력합니다. 메인 함수에서는 두 함수를 goroutine으로 실행한 후, time.Sleep을 사용하여 메인 함수의 실행이 종료되지 않도록 합니다. 결과적으로, Square과 Cube 함수가 동시에 실행되어 5의 제곱과 세제곱이 출력됩니다. 출력 결과는 순서가 일정하지 않을 수 있으며, 이는 goroutine 스케줄링에 따라 달라질 수 있습니다.  
 ```golang
 Square of 5 is 25
 Cube of 5 is 125
