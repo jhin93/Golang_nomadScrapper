@@ -61,7 +61,8 @@ func writeJobs(jobs []extractedJob) {
 }
 
 func getPage(page int) []extractedJob {
-	var jobs []extractedJob // 각각의 정보 카드(extractedJob) 으로 이루어진 slice 타입의 변수 jobs
+	var jobs []extractedJob      // 각각의 정보 카드(extractedJob) 으로 이루어진 slice 타입의 변수 jobs
+	c := make(chan extractedJob) // 이 채널(변수 c를 의미)에 전송할 값은 extractedJob 타입이다.
 	oldPageStr := "recruitPage=1"
 	newPageStr := fmt.Sprintf("recruitPage=%d", page)
 	newURL := strings.Replace(baseURL, oldPageStr, newPageStr, 1)
@@ -78,8 +79,7 @@ func getPage(page int) []extractedJob {
 	searchCards := doc.Find(".item_recruit")
 
 	searchCards.Each(func(i int, card *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
-		job := extractJob(card)
-		jobs = append(jobs, job)
+		go extractJob(card, c) // extractJob 함수에 채널(위의 변수 c)을 인자로 입력.
 	})
 	return jobs // 다수의 job 을 담은 배열 'jobs' 를 반환.
 }
@@ -114,13 +114,13 @@ func checkCode(res *http.Response) {
 	}
 }
 
-func extractJob(card *goquery.Selection) extractedJob {
+func extractJob(card *goquery.Selection, c chan<- extractedJob) {
 	id, _ := card.Attr("value")
 	title := cleanString(card.Find(".area_job>h2").Text())
 	location := cleanString(card.Find(".area_job>.job_condition span:first-child").Text())
 	career := cleanString(card.Find(".area_job>.job_condition span:second-child").Text())
 	sector := cleanString(card.Find(".area_job>.job_sector").Text())
-	return extractedJob{
+	c <- extractedJob{
 		id:       id,
 		title:    title,
 		location: location,
