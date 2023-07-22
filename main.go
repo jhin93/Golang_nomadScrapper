@@ -30,37 +30,26 @@ func main() {
 	// 3. 각 getPage는 각 일자리정보 별로 goroutine을 생성.
 	// 4. 정리 : 기존 방식(1페이지에서 순서대로 50개 정보 취합 -> 2페이지 순서대로 ...)에서 goroutine 방식으로 병렬 처리(모든 페이지에서 동시에 일자리 정보를 각각 취합)
 	var jobs []extractedJob
+	c := make(chan []extractedJob) // 하나의 extractedJob이 아닌 다수의 extractedJob를 담은 slice 여야 함.
+
 	totalPages := getPages()
 	fmt.Println(totalPages)
 
-	for i := 1; i <= totalPages; i++ {
-		extractedJobs := getPage(i)           // getPage는 1페이지에 담긴 여러 카드의 정보들을 담은 배열을 반환한다.
-		jobs = append(jobs, extractedJobs...) // append()를 통해 배열들 각각의 contents 들을 또다시 합친다. extractedJobs의 contents 다수를 표현하는 것이 바로 '...' 이다. 즉, 배열들 각각의 contents들을 뽑아내어 합치는 것.
+	for i := 0; i < totalPages; i++ {
+		// getPage는 1페이지에 담긴 여러 카드의 정보들을 담은 배열을 반환한다.
+		go getPage(i, c) // getPage에 데이터를 받아올 채널(c)를 인자로 보낸다.
 	}
+
+	for i := 0; i < totalPages; i++ { // 위 반복문과 같은 맥락으로 반복문 작성
+		extractedJobs := <-c // 메세지를 기다리다가 채널에 메세지가 전송되면 extractedJob에 저장
+		jobs = append(jobs, extractedJobs...)
+	}
+
 	writeJobs(jobs) // 모든 url의 결과물을 jobs(func main의 jobs)에 담고 반복문이 끝난 다음 맨 마지막에 결과를 도출한다.
 	fmt.Println("Done, extracted", len(jobs))
 }
 
-func writeJobs(jobs []extractedJob) {
-	file, err := os.Create("jobs.csv") // 파일 이름 jobs.csv
-	checkErr(err)
-
-	w := csv.NewWriter(file) // 파일을 새로 만드는 것
-	defer w.Flush()          // Flush()는 함수가 끝나는 시점에 파일에 데이터를 입력하는 함수
-
-	headers := []string{"ID", "Title", "Location", "Career", "Sector"} // headers는 함수의 윗부분
-
-	wErr := w.Write(headers) // Write 함수로 headers를 w 에 작성.
-	checkErr(wErr)
-
-	for _, job := range jobs {
-		jobSlice := []string{job.id, job.title, job.location, job.career, job.sector}
-		jwErr := w.Write(jobSlice)
-		checkErr((jwErr)) // 여기까지 끝나고 나면 defer w.Flush가 발동해서 데이터가 파일에 입력될 것.
-	}
-}
-
-func getPage(page int) []extractedJob {
+func getPage(page int, mainC chan<- []extractedJob) { // 인자 mainC는 데이터를 받기만 할 것이기에 chan<-라고 입력
 	var jobs []extractedJob      // 각각의 정보 카드(extractedJob) 으로 이루어진 slice 타입의 변수 jobs
 	c := make(chan extractedJob) // 이 채널(변수 c를 의미)에 전송할 값은 extractedJob 타입이다.
 	oldPageStr := "recruitPage=1"
@@ -87,7 +76,7 @@ func getPage(page int) []extractedJob {
 		jobs = append(jobs, job) // slice 변수 jobs에 데이터 job 저장.
 	}
 
-	return jobs // 다수의 job 을 담은 배열 'jobs' 를 반환.
+	mainC <- jobs // jobs를 리턴하는 대신 메인함수의 채널 mainC에 데이터 저장
 }
 
 func getPages() int {
@@ -106,6 +95,25 @@ func getPages() int {
 	})
 
 	return pages
+}
+
+func writeJobs(jobs []extractedJob) {
+	file, err := os.Create("jobs.csv") // 파일 이름 jobs.csv
+	checkErr(err)
+
+	w := csv.NewWriter(file) // 파일을 새로 만드는 것
+	defer w.Flush()          // Flush()는 함수가 끝나는 시점에 파일에 데이터를 입력하는 함수
+
+	headers := []string{"ID", "Title", "Location", "Career", "Sector"} // headers는 함수의 윗부분
+
+	wErr := w.Write(headers) // Write 함수로 headers를 w 에 작성.
+	checkErr(wErr)
+
+	for _, job := range jobs {
+		jobSlice := []string{job.id, job.title, job.location, job.career, job.sector}
+		jwErr := w.Write(jobSlice)
+		checkErr((jwErr)) // 여기까지 끝나고 나면 defer w.Flush가 발동해서 데이터가 파일에 입력될 것.
+	}
 }
 
 func checkErr(err error) {
