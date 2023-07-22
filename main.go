@@ -81,6 +81,12 @@ func getPage(page int) []extractedJob {
 	searchCards.Each(func(i int, card *goquery.Selection) { // s는 각 채용공고 카드를 의미함.
 		go extractJob(card, c) // extractJob 함수에 채널(위의 변수 c)을 인자로 입력.
 	})
+
+	for i := 0; i < searchCards.Length(); i++ { // 페이지 장 수만큼 반복문 돔
+		job := <-c               // 채널에 받은 데이터를 변수 job에 저장
+		jobs = append(jobs, job) // slice 변수 jobs에 데이터 job 저장.
+	}
+
 	return jobs // 다수의 job 을 담은 배열 'jobs' 를 반환.
 }
 
