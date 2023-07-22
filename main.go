@@ -25,9 +25,13 @@ var baseURL string = "https://www.saramin.co.kr/zf_user/search/recruit?=&searchw
 // var baseURL string = "https://kr.indeed.com/jobs?q=python&limit=50"
 
 func main() {
+	// 1. 총 페이지 수를 가져온다(getPages 함수).
+	// 2. 각 페이지별로 goroutine을 생성(getPage, getPage, getPage...)
+	// 3. 각 getPage는 각 일자리정보 별로 goroutine을 생성.
+	// 4. 정리 : 기존 방식(1페이지에서 순서대로 50개 정보 취합 -> 2페이지 순서대로 ...)에서 goroutine 방식으로 병렬 처리(모든 페이지에서 동시에 일자리 정보를 각각 취합)
 	var jobs []extractedJob
 	totalPages := getPages()
-	fmt.Println(totalPages)
+
 	for i := 1; i <= totalPages; i++ {
 		extractedJobs := getPage(i)           // getPage는 1페이지에 담긴 여러 카드의 정보들을 담은 배열을 반환한다.
 		jobs = append(jobs, extractedJobs...) // append()를 통해 배열들 각각의 contents 들을 또다시 합친다. extractedJobs의 contents 다수를 표현하는 것이 바로 '...' 이다. 즉, 배열들 각각의 contents들을 뽑아내어 합치는 것.
