@@ -31,6 +31,7 @@ func main() {
 	// 4. 정리 : 기존 방식(1페이지에서 순서대로 50개 정보 취합 -> 2페이지 순서대로 ...)에서 goroutine 방식으로 병렬 처리(모든 페이지에서 동시에 일자리 정보를 각각 취합)
 	var jobs []extractedJob
 	totalPages := getPages()
+	fmt.Println(totalPages)
 
 	for i := 1; i <= totalPages; i++ {
 		extractedJobs := getPage(i)           // getPage는 1페이지에 담긴 여러 카드의 정보들을 담은 배열을 반환한다.
