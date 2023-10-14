@@ -1,4 +1,4 @@
-module github.com/jhin93/learngo
+module github.com/jhin93/Golang
 
 go 1.20
 
