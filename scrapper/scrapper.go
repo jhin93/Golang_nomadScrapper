@@ -130,10 +130,10 @@ func checkCode(res *http.Response) {
 
 func extractJob(card *goquery.Selection, c chan<- extractedJob) {
 	id, _ := card.Attr("value")
-	title := cleanString(card.Find(".area_job>h2").Text())
-	location := cleanString(card.Find(".area_job>.job_condition span:first-child").Text())
-	career := cleanString(card.Find(".area_job>.job_condition span:second-child").Text())
-	sector := cleanString(card.Find(".area_job>.job_sector").Text())
+	title := CleanString(card.Find(".area_job>h2").Text())
+	location := CleanString(card.Find(".area_job>.job_condition span:first-child").Text())
+	career := CleanString(card.Find(".area_job>.job_condition span:second-child").Text())
+	sector := CleanString(card.Find(".area_job>.job_sector").Text())
 	c <- extractedJob{ // 채널에 값 받기
 		id:       id,
 		title:    title,
@@ -143,7 +143,8 @@ func extractJob(card *goquery.Selection, c chan<- extractedJob) {
 	}
 }
 
-func cleanString(str string) string {
+// CleanString cleans a string
+func CleanString(str string) string {
 	// 양쪽 끝 공백은 TrimSpace가 지우고, Fields는 내부 공백을 지운 후 배열에 단어를 담는다. 이후 배열에 담긴 단어들을 join으로 " "로 합친다.
 	return strings.Join(strings.Fields(strings.TrimSpace(str)), " ")
 }
