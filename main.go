@@ -13,5 +13,5 @@ func handleHome(c echo.Context) error {
 func main() {
 	e := echo.New()
 	e.GET("/", handleHome)
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":1323")) // http://localhost:1323/ 에서 확인 가능
 }
