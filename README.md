@@ -346,7 +346,13 @@ func isSexy(person string, c chan bool) { // 채널을 통해 보낼 타입이 b
 // true
 // flynn
 // true
-// 둘은 엄밀히 동시에 끝난 것.
+
+//  OR
+
+// flynn
+// nico
+// true
+// true
 
 ```
 
